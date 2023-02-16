@@ -1,0 +1,91 @@
+ /* Page Setting */
+html {
+    /* 62.5% of 16px = 10px */
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    font-family: "Noto Sans TC", sans-serif;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Universal setting */
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-space {
+    margin: none;
+    padding: none;
+}
+
+
+/* Title Elements */
+.title {
+    margin-top: 1rem;
+}
+
+/* Board Elements */
+.board {
+    position: relative;
+    margin-top: 1rem;
+    width: 527.5px;
+    height: 527.5px;
+    background-color: black;
+    border: 2px solid black;
+}
+
+.board-box {
+    width: 527.5px;
+    height: 527.5px;
+    position: relative;
+}
+
+.block {
+    position: absolute;
+    background-color: chocolate;
+}
+
+/* Pieces */
+
+.piece {
+    position: absolute;
+    
+}
+
+.arrow {
+    clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+}
+  
+
+
+/* Description Box */
+.description-box {
+    margin-top: 3rem;
+    position: relative;
+    border: 3px solid black;
+    width: 65.6rem;
+    height: 13.4rem;
+    background-color: darkgrey;
+}
+
+
+@media screen and (max-width: 601px) {
+    .description-box{
+        width: 80%;
+    }
+  }
