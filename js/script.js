@@ -1,10 +1,11 @@
 // import Board module
 import Board from './board.js';
 
-var grid_size = 9;
+var grid_size = 8;
 var pit_size = grid_size-4;
 var wumpus_size = 1;
 var wumpus_pos = [];
+var level = [1,1]
 var gap = 5;
 var cellWidth = 60;
 var upper_layer;
@@ -12,12 +13,14 @@ var fog_layer;
 var fog_board = generateFog(0);
 var jump = false;
 
-if(grid_size > 7) {
-    jump = true;
+if (grid_size >= 7) {
+    pit_size = grid_size;
 }
 
+
 if (grid_size >= 8) {
-    wumpus_size = grid_size-7;
+    jump = true;
+    wumpus_size = Math.floor(grid_size / 2) - 3;
 }
 
 let board = new Board(grid_size);
@@ -30,14 +33,25 @@ window.onload = function () {
     let btn_next = document.querySelector(".next-level")
     let btn_restart = document.querySelector(".restart")
     btn_next.onclick = function(){
-        pit_size++;
-        if(pit_size == grid_size-2) {
+        if(level[1] == 2) {
+            level[0]++;
+            level[1] = 1; 
             grid_size++;
-            pit_size = grid_size-4;
+            if(grid_size < 7) {
+                pit_size = grid_size-2;
+            }
+            else {
+                pit_size = grid_size-1;
+            }        
         }
+        else {
+            level[1]++;
+            pit_size++;
+        }
+        updateLvl();
         if (grid_size >= 8) {
             jump = true;
-            wumpus_size = grid_size-7;
+            wumpus_size = Math.floor(grid_size / 2) - 3;
         }
         board = new Board(grid_size);
         board.generateBrd();
@@ -69,6 +83,13 @@ window.onload = function () {
     drawPieces();
     drawfog();
     generateObj();
+}
+
+function updateLvl () {
+    let lvlm = document.querySelector('.level-main');
+    let lvls = document.querySelector('.level-sub');
+    lvlm.textContent = level[0];
+    lvls.textContent = level[1];
 }
 
 
@@ -217,12 +238,6 @@ function drawfog() {
     }
 }
 
-
-function updateattacks () {
-    attk = document.querySelector('.attack-num');
-    attk.textContent = board.attack;
-}
-
 function generateObj() {   
     let t = 0;
     let danger = [];
@@ -258,50 +273,55 @@ function generateObj() {
 }
 
 function moveWumpus() {
-    for (let i = 0; i < wumpus_pos.length; i++) {
-        let wr = wumpus_pos[i][0];
-        let wc = wumpus_pos[i][1];
-        //delete wumpus
-        board.deleteA(wr, wc, 'W');
-        //delete breeze
-        //check upper square
-        let pos_moves = [];
-        if (wr - 1 != -1) {
-            board.deleteA(wr-1, wc, 'S');
-            let temp = [];
-            temp.push(wr-1);
-            temp.push(wc);
-            pos_moves.push(temp);
+    let nn = Math.floor(Math.random() * 4); 
+    console.log(nn);
+    if(nn != 0) {
+            for (let i = 0; i < wumpus_pos.length; i++) {
+            let wr = wumpus_pos[i][0];
+            let wc = wumpus_pos[i][1];
+            //delete wumpus
+            board.deleteA(wr, wc, 'W');
+            //delete breeze
+            //check upper square
+            let pos_moves = [];
+            if (wr - 1 != -1) {
+                board.deleteA(wr-1, wc, 'S');
+                let temp = [];
+                temp.push(wr-1);
+                temp.push(wc);
+                pos_moves.push(temp);
+            }
+            //check for lower
+            if (wr + 1 != grid_size) {
+                board.deleteA(wr+1, wc, 'S');
+                let temp = [];
+                temp.push(wr+1);
+                temp.push(wc);
+                pos_moves.push(temp);
+            }
+            //check for left
+            if (wc - 1 != -1) {
+                board.deleteA(wr, wc-1, 'S');
+                let temp = [];
+                temp.push(wr);
+                temp.push(wc-1);
+                pos_moves.push(temp);
+            }
+            //check for right
+            if (wc + 1 != grid_size) {
+                board.deleteA(wr, wc+1, 'S');
+                let temp = [];
+                temp.push(wr);
+                temp.push(wc+1);
+                pos_moves.push(temp);
+            }
+            //spawn the new wumpus
+            let r = Math.floor(Math.random() * pos_moves.length);
+            board.spawnWumpus(pos_moves[r][0], pos_moves[r][1]);
+            wumpus_pos[i] = pos_moves[r];
         }
-        //check for lower
-        if (wr + 1 != grid_size) {
-            board.deleteA(wr+1, wc, 'S');
-            let temp = [];
-            temp.push(wr+1);
-            temp.push(wc);
-            pos_moves.push(temp);
-        }
-        //check for left
-        if (wc - 1 != -1) {
-            board.deleteA(wr, wc-1, 'S');
-            let temp = [];
-            temp.push(wr);
-            temp.push(wc-1);
-            pos_moves.push(temp);
-        }
-        //check for right
-        if (wc + 1 != grid_size) {
-            board.deleteA(wr, wc+1, 'S');
-            let temp = [];
-            temp.push(wr);
-            temp.push(wc+1);
-            pos_moves.push(temp);
-        }
-        //spawn the new wumpus
-        let r = Math.floor(Math.random() * pos_moves.length);
-        board.spawnWumpus(pos_moves[r][0], pos_moves[r][1]);
-        wumpus_pos[i] = pos_moves[r];
     }
+    
 }
 
 
