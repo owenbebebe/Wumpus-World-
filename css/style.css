@@ -39,26 +39,56 @@ body {
     margin-top: 1rem;
 }
 
+.attack-box {
+    display: flex;
+    font-size: medium;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 /* Board Elements */
 .board {
     position: relative;
     margin-top: 1rem;
-    width: 527.5px;
-    height: 527.5px;
     background-color: black;
     border: 2px solid black;
 }
 
 .board-box {
-    width: 527.5px;
-    height: 527.5px;
     position: relative;
 }
 
 .block {
+    width: 500px;
+    height: 500px;
     position: absolute;
-    background-color: chocolate;
+    background-size: cover;
+    background-position: center;
 }
+
+.block-corner {
+    background-image: url(/images/corner.png);
+}
+
+.block-side {
+    background-image: url(/images/side.png);
+}
+
+.block-fill1 {
+    background-image: url(/images/fill1.png);
+}
+
+.block-fill2 {
+    background-image: url(/images/fill2.png);
+}
+
+.player {
+    z-index: 900;
+    background-image: url(/images/player-front.png);
+}
+
+
 
 /* Pieces */
 
@@ -67,11 +97,38 @@ body {
     
 }
 
-.arrow {
-    clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+.fog {
+   position: absolute;
+   background-image: url(/images/fog.png);
 }
-  
 
+.arrow {
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+}
+
+.breeze {
+    background-image: url(/images/breeze.png);
+}
+
+.pit {
+    background-image: url(/images/pit.png);
+}
+
+.stench {
+    background-image: url(/images/stench.png);
+}
+
+.wumpus {
+    background-image: url(/images/wumpus.png);
+}
+
+.glitter {
+    background-image: url(/images/glitter.png);
+}
+
+.treasure {
+    background-image: url(/images/treasure.png);
+}
 
 /* Description Box */
 .description-box {
@@ -81,6 +138,24 @@ body {
     width: 65.6rem;
     height: 13.4rem;
     background-color: darkgrey;
+}
+
+.result-box {
+    opacity: 90%;
+    width: 20rem;
+    height: 20rem; 
+    border: 3px solid black;
+    background-color: grey;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    z-index: 1000;
+}
+
+.gameover {
+    font-size: 3rem;
 }
 
 
