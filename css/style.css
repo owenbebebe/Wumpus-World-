@@ -68,17 +68,15 @@ body {
     flex-direction: column;
     position: absolute;
     height: 0rem;
-    width: 50rem;
+    width: 500px;
     overflow: hidden;
-    transition: height 1s ease;
-    background-color: gray;
+    transition: height 0.5s linear;
     color: white;
     z-index: 1001;
 }
 
-
-.how-to:hover + .expand-div {
-    height: 100rem;
+.how-des {
+    width: 700px;
 }
 
 .attack-box {

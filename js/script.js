@@ -251,16 +251,16 @@ function drawPieces() {
                         piece.style.width = cellWidth-20+"px";
                         piece.style.height = cellWidth+20+"px";
                         if(board.face === 'U') {
-                            piece.classList.add("player-back")
+                            piece.classList.add("player-back");
                         }
                         if(board.face === 'D') {
-                            piece.classList.add("player-front")
+                            piece.classList.add("player-front");
                         }
                         if(board.face === 'L') {
-                            piece.classList.add("player-left")
+                            piece.classList.add("player-left");
                         }
                         if(board.face === 'R') {
-                            piece.classList.add("player-right")
+                            piece.classList.add("player-right");
                         }
                     }
                     else {
@@ -471,3 +471,21 @@ function generateNum() {
 
 const hoverDiv = document.querySelector('.how-to');
 const expandDiv = document.querySelector('.how-des');
+const hoverDiv1 = document.querySelector('.control-to');
+const expandDiv1 = document.querySelector('.control-des');
+
+hoverDiv.onmouseover = function() {
+    expandDiv.style.height="500px";
+}
+
+hoverDiv.onmouseout = function() {
+    expandDiv.style.height="0rem";
+}
+
+hoverDiv1.onmouseover = function() {
+    expandDiv1.style.height="400px";
+}
+
+hoverDiv1.onmouseout = function() {
+    expandDiv1.style.height="0rem";
+}
