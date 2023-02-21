@@ -1,7 +1,7 @@
 // import Board module
 import Board from './board.js';
 
-var grid_size = 8;
+var grid_size = 5;
 var pit_size = grid_size-4;
 var wumpus_size = 1;
 var wumpus_pos = [];
@@ -48,6 +48,12 @@ window.onload = function () {
             level[1]++;
             pit_size++;
         }
+        if(level[0] >= 5) {
+            pit_size = level[0]*2;
+            if (level[1] ==2) {
+                pit_size += 2;
+            } 
+        }
         updateLvl();
         if (grid_size >= 8) {
             jump = true;
@@ -60,8 +66,8 @@ window.onload = function () {
         generateObj();
         drawPieces();
         drawfog();
-        drawBoard();
         resizeBoard();
+        drawBoard();
         let temp = document.querySelector('.next-box');
         temp.style.display = 'none';
     }
@@ -73,8 +79,8 @@ window.onload = function () {
         generateObj();
         drawPieces();
         drawfog();
-        drawBoard();
         resizeBoard();
+        drawBoard();
         let temp = document.querySelector('.gameover-box');
         temp.style.display = 'none';
     }
@@ -110,62 +116,119 @@ function generateFog(c) {
 function resizeBoard() {
     let b = document.querySelector(".board-box");
     let bb = document.querySelector(".board");
-    b.style.width=grid_size*65.9375 + "px";
-    b.style.height=grid_size*65.9375 + "px";
-    bb.style.width=grid_size*65.9375 + "px";
-    bb.style.height=grid_size*65.9375 + "px";
+    bb.style.width=(grid_size+2)*65.9375 + 8 +"px";
+    bb.style.height=(grid_size+2)*65.9375 + 8 + "px";
+    // Select all div elements inside the parent div
+    const divsToRemove = bb.querySelectorAll('div');
+
+    // Loop through the selected div elements and remove them
+    divsToRemove.forEach(div => {
+    div.remove();
+    });
 }
+
 
 
 //print out the eight by eight grid
 function drawBoard() {
-    for(var i = 0; i < grid_size; i++) {
-        for(var j = 0; j < grid_size; j++) {
+    for(var i = 0; i < grid_size+2; i++) {
+        for(var j = 0; j < grid_size+2; j++) {
             let blk = document.createElement("div");
-            blk.style.width = cellWidth+"px";
-            blk.style.height = cellWidth+"px";
-            blk.classList.add("block");
-            blk.style.left = ((cellWidth + gap) * j + gap)+"px";
-            blk.style.top = ((cellWidth + gap) * i + gap)+"px";
-            if(i == 0) {
-                if(j == 0) {
-                    blk.classList.add("block-corner");
-                    blk.style.transform="rotate(0deg)";
+            if (i == 0 || j == 0 || i == grid_size+1 || j == grid_size+1)
+             {
+                blk.classList.add("block");
+                if(i == 0) {
+                    if(j == 0) {
+                        blk.classList.add("brdr-corner");
+                        blk.style.transform="rotate(0deg)";
+                        blk.style.left = ((cellWidth + gap) * j + gap) + 30 +"px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap) + 30 + "px";
+                    }
+                    else if(j == grid_size+1) {
+                        blk.classList.add("brdr-corner");
+                        blk.style.left = ((cellWidth + gap) * j + gap) -17 + "px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap) + 30 + "px";
+                    }
+                    else {
+                        blk.classList.add("brdr-side-verti");
+                        blk.style.left = ((cellWidth + gap) * j + gap) +"px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap) + 30 + "px";
+                    }
                 }
-                else if(j == grid_size-1) {
-                    blk.classList.add("block-corner");
+                else if(i == grid_size+1) {
+                    if(j == 0) {
+                        blk.classList.add("brdr-corner-down");
+                        blk.style.left = ((cellWidth + gap) * j + gap) + 48 +"px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap) + "px";
+                    }
+                    else if(j ==  grid_size+1) {
+                        blk.classList.add("brdr-corner-down");
+                        blk.style.left = ((cellWidth + gap) * j + gap) +1 +"px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap)  + "px";
+                    }
+                    else {
+                        blk.classList.add("brdr-side-verti");
+                        blk.style.left = ((cellWidth + gap) * j + gap)  +"px"; 
+                        blk.style.top = ((cellWidth + gap) * i + gap) + "px";
+                    }
+                }
+                else if(j == 0 && i !=  grid_size+1 && i != 0) {
+                    blk.classList.add("brdr-side-horix");
+                    blk.style.left = ((cellWidth + gap) * j + gap) + 47 +"px"; 
+                    blk.style.top = ((cellWidth + gap) * i + gap) + "px";
+                }
+                else if(j ==  grid_size+1 && i !=  grid_size+1 && i != 0) {
+                    blk.classList.add("brdr-side-horix");
+                    blk.style.left = ((cellWidth + gap) * j + gap) +"px"; 
+                    blk.style.top = ((cellWidth + gap) * i + gap) + "px";
+                }
+            }
+            else{
+                blk.style.width = cellWidth+"px";
+                blk.style.height = cellWidth+"px";
+                blk.classList.add("block");
+                blk.style.left = ((cellWidth + gap) * j + gap) +"px"; 
+                blk.style.top = ((cellWidth + gap) * i + gap) + "px";
+                if(i == 1) {
+                    if(j == 1) {
+                        blk.classList.add("block-corner");
+                        blk.style.transform="rotate(0deg)";
+                    }
+                    else if(j == grid_size) {
+                        blk.classList.add("block-corner");
+                        blk.style.transform="rotate(90deg)";
+                    }
+                    else {
+                        blk.classList.add("block-side");
+                    }
+                }
+                else if(i == grid_size) {
+                    if(j == 1) {
+                        blk.classList.add("block-corner");
+                        blk.style.transform="rotate(-90deg)";
+                    }
+                    else if(j ==  grid_size) {
+                        blk.classList.add("block-corner");
+                        blk.style.transform="rotate(180deg)";
+                    }
+                    else {
+                        blk.classList.add("block-side");
+                        blk.style.transform="rotate(180deg)";
+                    }
+                }
+                else if(j == 1 && i !=  grid_size && i != 1) {
+                    blk.classList.add("block-side");
+                    blk.style.transform="rotate(-90deg)";
+                }
+                else if(j ==  grid_size && i !=  grid_size && i != 1) {
+                    blk.classList.add("block-side");
                     blk.style.transform="rotate(90deg)";
                 }
                 else {
-                    blk.classList.add("block-side");
+                    let num = Math.floor(Math.random() * 2);
+                    if(num == 0) blk.classList.add("block-fill1")
+                    else  blk.classList.add("block-fill2");
                 }
-            }
-            else if(i ==  grid_size-1) {
-                if(j == 0) {
-                    blk.classList.add("block-corner");
-                    blk.style.transform="rotate(-90deg)";
-                }
-                else if(j ==  grid_size-1) {
-                    blk.classList.add("block-corner");
-                    blk.style.transform="rotate(180deg)";
-                }
-                else {
-                    blk.classList.add("block-side");
-                    blk.style.transform="rotate(180deg)";
-                }
-            }
-            else if(j == 0 && i !=  grid_size-1 && i != 0) {
-                blk.classList.add("block-side");
-                blk.style.transform="rotate(-90deg)";
-            }
-            else if(j ==  grid_size-1 && i !=  grid_size-1 && i != 0) {
-                blk.classList.add("block-side");
-                blk.style.transform="rotate(90deg)";
-            }
-            else {
-                let num = Math.floor(Math.random() * 2);
-                if(num == 0) blk.classList.add("block-fill1")
-                else  blk.classList.add("block-fill2");
             }
             document.querySelector(".board").appendChild(blk);
         }
@@ -182,8 +245,8 @@ function drawPieces() {
                 for(var k = 0; k < board.brd[i][j].length; k++) {
                     let piece = document.createElement("div");
                     if(board.brd[i][j][k] === 'A') {
-                        piece.style.top = ((cellWidth + gap) * i + gap -15)+"px";
-                        piece.style.left = ((cellWidth + gap) * j + gap + 10)+"px";
+                        piece.style.top = ((cellWidth + gap) * i + gap + 50)+"px";
+                        piece.style.left = ((cellWidth + gap) * j + gap + 75)+"px";
                         piece.classList.add("player")
                         piece.style.width = cellWidth-20+"px";
                         piece.style.height = cellWidth+20+"px";
@@ -201,8 +264,8 @@ function drawPieces() {
                         }
                     }
                     else {
-                        piece.style.top = ((cellWidth + gap) * i + gap + 12)+"px";
-                        piece.style.left = ((cellWidth + gap) * j + gap + 2)+"px";
+                        piece.style.top = ((cellWidth + gap) * i + gap + 77)+"px";
+                        piece.style.left = ((cellWidth + gap) * j + gap + 67)+"px";
                         piece.style.width = cellWidth+"px";
                         piece.style.height = cellWidth+"px";
                     }
@@ -229,8 +292,8 @@ function drawfog() {
                 let fog = document.createElement("div");
                 fog.style.width = cellWidth+"px";
                 fog.style.height = cellWidth+"px";
-                fog.style.left = ((cellWidth + gap) * j + gap + 2)+"px";
-                fog.style.top = ((cellWidth + gap) * i + gap + 12)+"px";
+                fog.style.left = ((cellWidth + gap) * j + gap + 67)+"px";
+                fog.style.top = ((cellWidth + gap) * i + gap + 77)+"px";
                 fog.classList.add("fog");
                 document.querySelector(".fog_layer").appendChild(fog);
             }
@@ -239,10 +302,18 @@ function drawfog() {
 }
 
 function generateObj() {   
-    let t = 0;
+    let t = generateNum();
     let danger = [];
-    for(let i = 0; i < pit_size; i++) {
+    danger.push(t);
+    board.spawnPit(t[0], t[1]);
+    for(let i = 1; i < pit_size; i++) {
         t = generateNum();
+        for (let j = 0; j < danger.length; j++) {
+            if(danger[j][0] === t[0] && danger[j][1] === t[1]) {
+                t = generateNum();
+                j--;
+            }
+        }
         danger.push(t);
         board.spawnPit(t[0], t[1]);
     }
@@ -342,6 +413,7 @@ document.addEventListener("keydown", function(event) {
         }
 
         if (event.keyCode === 32) {
+            event.preventDefault();
             if (board.face === 'U') {
                 if(board.pos[0] != 0) {
                     board.movePosition([board.pos[0]-1, board.pos[1]]);
@@ -395,3 +467,7 @@ function generateNum() {
     }
     return [randn1, randn2];
 }
+
+
+const hoverDiv = document.querySelector('.how-to');
+const expandDiv = document.querySelector('.how-des');
