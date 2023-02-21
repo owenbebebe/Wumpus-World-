@@ -251,16 +251,16 @@ function drawPieces() {
                         piece.style.width = cellWidth-20+"px";
                         piece.style.height = cellWidth+20+"px";
                         if(board.face === 'U') {
-                            piece.style.backgroundImage="url(../images/player-back.png)";
+                            piece.classList.add("player-back")
                         }
                         if(board.face === 'D') {
-                            piece.style.backgroundImage="url(../images/player-front.png)";
+                            piece.classList.add("player-front")
                         }
                         if(board.face === 'L') {
-                            piece.style.backgroundImage="url(../images/player-left.png)";
+                            piece.classList.add("player-left")
                         }
                         if(board.face === 'R') {
-                            piece.style.backgroundImage="url(../images/player-side.png)";
+                            piece.classList.add("player-right")
                         }
                     }
                     else {

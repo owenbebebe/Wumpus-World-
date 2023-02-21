@@ -157,7 +157,21 @@ body {
     background-image: url(../images/player-front.png);
 }
 
+.player-front {
+    background-image: url(../images/player-front.png);
+}
 
+.player-left {
+    background-image: url(../images/player-left.png);
+}
+
+.player-right {
+    background-image: url(../images/player-side.png);
+}
+
+.player-back {
+    background-image: url(../images/player-back.png);
+}
 
 /* Pieces */
 
