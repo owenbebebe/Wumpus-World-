@@ -67,11 +67,10 @@ body {
     align-items: center;
     flex-direction: column;
     position: absolute;
-    height: 0px;
+    height: 0rem;
     width: 50rem;
     overflow: hidden;
     transition: height 1s ease;
-    transition: width 1s ease;
     background-color: gray;
     color: white;
     z-index: 1001;
@@ -110,52 +109,52 @@ body {
 }
 
 .brdr-corner {
-    background-image: url(images/corner\ up.png);
+    background-image: url(../images/corner\ up.png);
     width: 35px;
     height: 35px;
 }
 
 .brdr-corner-down {
-    background-image: url(images/corner-down.png);
+    background-image: url(../images/corner-down.png);
     width: 16px;
     height: 35px;
 }
 
 .brdr-side-horix {
-    background-image: url(images/border-side.png);
+    background-image: url(../images/border-side.png);
     height: 65px;
     width: 18px;
 }
 
 .brdr-side-verti {
-    background-image: url(images/border-up.png);
+    background-image: url(../images/border-up.png);
     height: 35px;
     width: 65px;
 }
 
 .block-side {
-    background-image: url(images/side.png);
+    background-image: url(../images/side.png);
 }
 
 .block-corner {
-    background-image: url(images/corner.png);
+    background-image: url(../images/corner.png);
 }
 
 .block-side {
-    background-image: url(images/side.png);
+    background-image: url(../images/side.png);
 }
 
 .block-fill1 {
-    background-image: url(images/fill1.png);
+    background-image: url(../images/fill1.png);
 }
 
 .block-fill2 {
-    background-image: url(images/fill2.png);
+    background-image: url(../images/fill2.png);
 }
 
 .player {
     z-index: 900;
-    background-image: url(images/player-front.png);
+    background-image: url(../images/player-front.png);
 }
 
 
@@ -169,7 +168,7 @@ body {
 
 .fog {
    position: absolute;
-   background-image: url(images/fog.png);
+   background-image: url(../images/fog.png);
 }
 
 .arrow {
@@ -177,27 +176,27 @@ body {
 }
 
 .breeze {
-    background-image: url(images/breeze.png);
+    background-image: url(../images/breeze.png);
 }
 
 .pit {
-    background-image: url(images/pit.png);
+    background-image: url(../images/pit.png);
 }
 
 .stench {
-    background-image: url(images/stench.png);
+    background-image: url(../images/stench.png);
 }
 
 .wumpus {
-    background-image: url(images/wumpus.png);
+    background-image: url(../images/wumpus.png);
 }
 
 .glitter {
-    background-image: url(images/glitter.png);
+    background-image: url(../images/glitter.png);
 }
 
 .treasure {
-    background-image: url(images/treasure.png);
+    background-image: url(../images/treasure.png);
 }
 
 /* Description Box */
